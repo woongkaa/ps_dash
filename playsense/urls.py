@@ -21,11 +21,9 @@ from dashboard import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^dashboard/', include(router.urls)),
-    url(r'^movies.json$', views.MovieListJson.as_view(), name="movie_list"),
-    url(r'^movies_recent.json$', views.MoviesRecent.as_view(), name="movies_recent"),
     url(r'^movie.json/(?P<pk>[0-9]+)$',views. MovieInfo.as_view(), name="movie_info"),
     url(r'^monitoring/(?P<pk>[0-9]+)$', views.Monitoring.as_view(), name="monitoring"),
     url(r'^movie$', views.movie_detail,name="movie"),
-    url(r'^monitorf/(?P<pk>[0-9]+)$', views.monitoring, name="monitoring_fbv")
+    url(r'^monitorf/(?P<pk>[0-9]+)$', views.monitoring, name="monitoring_fbv"),
+    url(r'^dashboard/', include("dashboard.urls")),
 ]

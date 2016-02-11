@@ -7,29 +7,20 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
-class MovieListJson(View):
-    def get(self, request):
-        return AdTbl.objects.all()
-
-
-class MoviesRecent(View):
-    def get(self, request):
-        return AdTbl.objects.order_by('-ad_key')[:15]
-
-
-class MovieInfo(View):
-    def get(self, request, **kwargs):
-        return AdTbl.objects.filter(ad_key=kwargs['pk'])
-
-
 def json_movie_info(request, **kwargs):
-    return AdTbl.objects.filter(ad_key=kwargs['pk'])
+    try:
+        qs = AdTbl.objects.filter(ad_key=kwargs['pk'])
+    except ObjectDoesNotExist:
+        qs = None
+    return qs
 
 
-class Monitoring(View):
-    def get(self, request, **kwargs):
-        row_movie = json_movie_info(request, **kwargs)[0]
-        return HttpResponse(str(row_movie.ad_key) + ' ' + row_movie.ad_title)
+def json_movie_log(request, **kwargs):
+    try:
+        qs = DailyLog.objects.filter(movie=kwargs['pk'])
+    except ObjectDoesNotExist:
+        qs = None
+    return qs
 
 
 def movie_detail(request):
@@ -42,3 +33,24 @@ def monitoring(request, **kwargs):
     movie = AdTbl.objects.get(ad_key=kwargs['pk'])
     logs = DailyLog.objects.filter(movie=kwargs['pk'])
     return render(request, "dashboard/monitor.html", {'movie':movie,'logs':logs})
+
+
+class Dashboard(DetailView):
+    template_name = "dashboard/dashboard.html"
+    model = AdTbl
+
+    def get_context_data(self, **kwargs):
+        context = super(Dashboard, self).get_context_data(**kwargs)
+
+        return context
+
+
+class MovieInfo(View):
+    def get(self, request, **kwargs):
+        return AdTbl.objects.filter(ad_key=kwargs['pk'])
+
+
+class Monitoring(View):
+    def get(self, request, **kwargs):
+        row_movie = json_movie_info(request, **kwargs)[0]
+        return HttpResponse(str(row_movie.ad_key) + ' ' + row_movie.ad_title)

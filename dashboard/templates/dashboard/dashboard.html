@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>대시보드</title>
+</head>
+<body>
+<h3>{{ adtbl.ad_title }}</h3>
+<h4>{{ adtbl.ad_key }}</h4>
+{% for log in adtbl.get_daily_logs %}
+    <p>------------------</p>
+    <p>날짜 {{ log.date }}</p>
+    <p>조회수 {{ log.ad_hit }}</p>
+    <p>공유수 {{ log.post_count }}</p>
+    <p>uv {{ log.uv_hit }}</p>
+{% endfor %}
+
+</body>
+</html>
