@@ -16,10 +16,12 @@ from django.db import models
 from django.db.models.signals import post_init
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
+from bs4 import BeautifulSoup
+import requests
 
 
 class AdDailyTbl(models.Model):
-    # id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     date = models.DateField()
     ad_key = models.IntegerField()
     ad_hit = models.IntegerField()
@@ -99,6 +101,16 @@ class AdTbl(models.Model):
         except ObjectDoesNotExist:
             logs = None
         return logs
+
+    def get_naver_info(self):
+        response = requests.get(self.ad_movieurl)
+        soup = BeautifulSoup(response.text, "html.parser")
+        response.close()
+        view_count = soup.select_one('._viewCount').text
+        return view_count
+
+    def get_progress(self):
+        return float(self.uv_hit)/self.ad_limit
 
 
 class AdvertiserReq(models.Model):

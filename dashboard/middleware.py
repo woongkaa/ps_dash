@@ -1,15 +1,26 @@
 __author__ = 'woongkaa'
 from django.http import JsonResponse
 from django.db.models import QuerySet
-from dashboard.models import DailyLog
+from dashboard.models import DailyLog, AdDailyTbl
 
 def json_response(queryset):
     json_list = []
 
-    if isinstance(queryset.first(), DailyLog):
+    # if isinstance(queryset.first(), DailyLog):
+    if isinstance(queryset.first(), AdDailyTbl):
+        for instance in queryset:
+            json_list.append({
+                # 'date': str(instance.date.date()),
+                'date' : instance.date,
+                'v_count': instance.ad_hit,
+                'uv_count': instance.uv_hit,
+                'p_count': instance.post_count,
+            })
+    elif isinstance(queryset.first(), DailyLog):
         for instance in queryset:
             json_list.append({
                 'date': str(instance.date.date()),
+                # 'date' : instance.date,
                 'v_count': instance.ad_hit,
                 'uv_count': instance.uv_hit,
                 'p_count': instance.post_count,

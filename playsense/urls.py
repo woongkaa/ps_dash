@@ -16,14 +16,15 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from dashing.utils import router
 from dashboard import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^movie.json/(?P<pk>[0-9]+)$',views. MovieInfo.as_view(), name="movie_info"),
+    url(r'^movie_log.json/(?P<pk>[0-9]+)$', views.json_movie_log, name="movie_log"),
     url(r'^monitoring/(?P<pk>[0-9]+)$', views.Monitoring.as_view(), name="monitoring"),
     url(r'^movie$', views.movie_detail,name="movie"),
     url(r'^monitorf/(?P<pk>[0-9]+)$', views.monitoring, name="monitoring_fbv"),
     url(r'^dashboard/', include("dashboard.urls")),
+    url(r'^testboard$', views.TestView.as_view(), name="dash_test"),
 ]

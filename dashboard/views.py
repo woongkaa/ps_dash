@@ -17,7 +17,8 @@ def json_movie_info(request, **kwargs):
 
 def json_movie_log(request, **kwargs):
     try:
-        qs = DailyLog.objects.filter(movie=kwargs['pk'])
+        # qs = DailyLog.objects.filter(movie=kwargs['pk'])
+        qs = AdDailyTbl.objects.filter(ad_key=kwargs['pk'])
     except ObjectDoesNotExist:
         qs = None
     return qs
@@ -36,12 +37,11 @@ def monitoring(request, **kwargs):
 
 
 class Dashboard(DetailView):
-    template_name = "dashboard/dashboard.html"
+    template_name = "dashboard/index.html"
     model = AdTbl
 
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
-
         return context
 
 
@@ -54,3 +54,7 @@ class Monitoring(View):
     def get(self, request, **kwargs):
         row_movie = json_movie_info(request, **kwargs)[0]
         return HttpResponse(str(row_movie.ad_key) + ' ' + row_movie.ad_title)
+
+
+class TestView(TemplateView):
+    template_name = "dashboard/index.html"
