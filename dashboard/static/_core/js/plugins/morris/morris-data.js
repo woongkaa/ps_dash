@@ -4,6 +4,7 @@ $(function() {
 
     // Area Chart
     var chartData = [];
+
     $.ajax({
         url: urlForChartJson,
         dataType: "json",
@@ -98,13 +99,16 @@ $(function() {
     Morris.Donut({
         element: 'morris-donut-chart',
         data: [{
-            label: "Download Sales",
+            label: "KK",
+            color: "#F0AD4E",
             value: 12
         }, {
-            label: "In-Store Sales",
+            label: "FB",
+            color: "#337AB7",
             value: 30
         }, {
-            label: "Mail-Order Sales",
+            label: "NV",
+            color: "#5CB85C",
             value: 20
         }],
         resize: true

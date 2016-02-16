@@ -79,18 +79,6 @@ DATABASES = {
         'PORT':'3306',
     }
 }
-# DATABASES = {
-#      "default": {
-#          "ENGINE": "django.db.backends.postgresql_psycopg2",
-#          "NAME": "finers",
-#          'USER': 'arsdale',
-#          'PASSWORD': 'gksehrjs0710',
-#          'HOST': '175.126.82.107',
-#          'PORT': '',
-#          # 'ATOMIC_REQUESTS': True
-#      }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
