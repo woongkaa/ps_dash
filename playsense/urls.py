@@ -20,8 +20,8 @@ from dashboard import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^movie.json/(?P<pk>[0-9]+)$',views. MovieInfo.as_view(), name="movie_info"),
-    url(r'^movie_log.json/(?P<pk>[0-9]+)$', views.json_movie_log, name="movie_log"),
+    url(r'^movie_detail.json/(?P<pk>[0-9]+)$',views. MovieInfo.as_view(), name="movie_detail"),
+    url(r'^movie_log.json/(?P<pk>[0-9]+)$', views.MovieLog.as_view(), name="movie_log"),
     url(r'^monitoring/(?P<pk>[0-9]+)$', views.Monitoring.as_view(), name="monitoring"),
     url(r'^movie$', views.movie_detail,name="movie"),
     url(r'^monitorf/(?P<pk>[0-9]+)$', views.monitoring, name="monitoring_fbv"),

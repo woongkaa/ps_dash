@@ -1,9 +1,13 @@
 __author__ = 'woongkaa'
 from django.http import JsonResponse
-from django.db.models import QuerySet
-from dashboard.models import DailyLog, AdDailyTbl
+from django.db.models import QuerySet, Model
+from dashboard.models import DailyLog, AdDailyTbl, AdTbl
+from django.forms import model_to_dict
 
-def json_response(queryset):
+def model_json_response(model_instance):
+    return JsonResponse(model_to_dict(model_instance))
+
+def qs_json_response(queryset):
     json_list = []
 
     # if isinstance(queryset.first(), DailyLog):
@@ -37,5 +41,7 @@ def json_response(queryset):
 class JsonResponseMiddleware(object):
     def process_response(self, request, response):
         if isinstance(response, QuerySet):
-            return json_response(response)
+            return qs_json_response(response)
+        elif isinstance(response, Model):
+            return model_json_response(response)
         return response

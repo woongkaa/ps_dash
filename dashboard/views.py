@@ -45,9 +45,23 @@ class Dashboard(DetailView):
         return context
 
 
+class MovieLog(View):
+    def get(self, request, **kwargs):
+        try:
+            # qs = DailyLog.objects.filter(movie=kwargs['pk'])
+            qs = AdDailyTbl.objects.filter(ad_key=kwargs['pk'])
+        except ObjectDoesNotExist:
+            qs = None
+        return qs
+
+
 class MovieInfo(View):
     def get(self, request, **kwargs):
-        return AdTbl.objects.filter(ad_key=kwargs['pk'])
+        try:
+            instance = AdTbl.objects.get(ad_key=kwargs['pk'])
+        except ObjectDoesNotExist:
+            instance = None
+        return instance
 
 
 class Monitoring(View):
