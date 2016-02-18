@@ -42,6 +42,15 @@ class Dashboard(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
+        movie = self.object
+        context['progress'] = movie.get_progress() * 100
+        context['uv_spending'] = movie.get_spending()
+        context['survey_spending'] = movie.get_spending(uv=False)
+        if movie.income == 20:
+            context['is_complete']=False
+        else:
+            context['is_complete']=True
+
         return context
 
 

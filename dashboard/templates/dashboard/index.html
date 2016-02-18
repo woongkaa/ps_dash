@@ -19,140 +19,197 @@
                 <!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        {% if is_complete %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <i class="fa fa-info-circle"></i> 프로모션이 완료되었습니다.
+                            </div>
+                        {% else %}
+                            <div class="alert alert-warning alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <i class="fa fa-info-circle"></i> 프로모션이 진행중입니다.
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-6">
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i> 프로모션 진행경과를 확인하세요
+                            <i class="fa fa-info-circle"></i> 용어 설명
+                            <div>- Spending: </div>
+                            <div>- UV: </div>
                         </div>
                     </div>
                 </div>
                 <!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-8">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i>목표 도달률</h3>
+                                <i class="fa fa-bar-chart-o fa-fw"></i>실시간 진행 현황
                             </div>
                             <div class="panel-body">
-                                <div id="ps-percent-container"></div>
+                                <div class="col-lg-12">
+                                    <div class="panel {% if is_complete %}panel-success{% else %}panel-warning{% endif %}">
+                                        <div class="panel-heading">
+                                            <h4><i class="fa fa-tasks fa-fw"></i> 목표 달성률</h4>
+                                            <div class="progress">
+                                                <div class="progress-bar {% if is_complete %}progress-bar-success{% else %}progress-bar-warning{% endif %}" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ progress }}%">
+                                                    <span>{{ progress | floatformat:2 }} %</span>
+                                                </div>
+                                            </div>
+                                        </div>
+{#                                        <div class="panel-body">#}
+{#                                            <div id="ps-percent-container"></div>#}
+{#                                        </div>#}
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-eye fa-4x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge" id="ps-view-count">{{ adtbl.ad_hit | intcomma }}</div>
+                                                    <div>플레이센스 조회수</div>
+                                                </div>
+                                            </div>
+                                        </div>
+            {#                            <a href="#">#}
+            {#                                <div class="panel-footer">#}
+            {#                                    <span class="pull-left">View Details</span>#}
+            {#                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>#}
+            {#                                    <div class="clearfix"></div>#}
+            {#                                </div>#}
+            {#                            </a>#}
+                                    </div>
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-clock-o fa-4x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge">{{ adtbl.uv_hit | intcomma }}</div>
+                                                    <div>UV</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-share-square-o fa-4x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge">{{ adtbl.post_count | intcomma }}</div>
+                                                    <div>공유수</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-char-n fa-4x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge">{{ adtbl.get_naver_info }}</div>
+                                                    <div>네이버 실시간 조회수</div>
+                                                </div>
+                                            </div>
+                                        </div>
+            {#                            <a href="#">#}
+            {#                                <div class="panel-footer">#}
+            {#                                    <span class="pull-left">View Details</span>#}
+            {#                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>#}
+            {#                                    <div class="clearfix"></div>#}
+            {#                                </div>#}
+            {#                            </a>#}
+                                    </div>
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-tasks fa-4x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge">12</div>
+                                                    <div>New Tasks!</div>
+                                                </div>
+                                            </div>
+                                        </div>
+            {#                            <a href="#">#}
+            {#                                <div class="panel-footer">#}
+            {#                                    <span class="pull-left">View Details</span>#}
+            {#                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>#}
+            {#                                    <div class="clearfix"></div>#}
+            {#                                </div>#}
+            {#                            </a>#}
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-won fa-4x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge">{{ uv_spending | intcomma }}</div>
+                                                    <div>Spending UV</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-won fa-4x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge">{{ survey_spending | intcomma }}</div>
+                                                    <div>Spending Survey</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="panel panel-primary">
+                        <div class="panel panel-info">
                             <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="ps-view-count">{{ adtbl.ad_hit | intcomma }}</div>
-                                        <div>플레이센스 조회수</div>
-                                    </div>
-                                </div>
-                            </div>
-{#                            <a href="#">#}
-{#                                <div class="panel-footer">#}
-{#                                    <span class="pull-left">View Details</span>#}
-{#                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>#}
-{#                                    <div class="clearfix"></div>#}
-{#                                </div>#}
-{#                            </a>#}
-                        </div>
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{ adtbl.uv_hit | intcomma }}</div>
-                                        <div>UV(30초 이상 재생 시)</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{ adtbl.post_count | intcomma }}</div>
-                                        <div>공유수</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{ adtbl.get_naver_info }}</div>
-                                        <div>네이버 실시간 조회수</div>
-                                    </div>
-                                </div>
-                            </div>
-{#                            <a href="#">#}
-{#                                <div class="panel-footer">#}
-{#                                    <span class="pull-left">View Details</span>#}
-{#                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>#}
-{#                                    <div class="clearfix"></div>#}
-{#                                </div>#}
-{#                            </a>#}
-                        </div>
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
-                                        <div>New Tasks!</div>
-                                    </div>
-                                </div>
-                            </div>
-{#                            <a href="#">#}
-{#                                <div class="panel-footer">#}
-{#                                    <span class="pull-left">View Details</span>#}
-{#                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>#}
-{#                                    <div class="clearfix"></div>#}
-{#                                </div>#}
-{#                            </a>#}
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> 일 단위 로그</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-area-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> 노출 경로</h3>
+                                <h3 class="panel-title"><i class="fa fa-pie-chart fa-fw"></i> 노출 경로</h3>
                             </div>
                             <div class="panel-body">
                                 <div id="morris-donut-chart"></div>
                                 <div class="text-right">
                                     <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-area-chart fa-fw"></i> 일 단위 로그</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-area-chart"></div>
                             </div>
                         </div>
                     </div>
@@ -290,7 +347,7 @@
         <!-- /#page-wrapper -->
     <!-- variable for circle main -->
     <script>
-        var percentage = {{ adtbl.get_progress }};
+        var percentage = {{ progress }};
         var urlForChartJson = "{% url "movie_log" adtbl.ad_key %}";
         var urlForMovieDetail = "{% url "movie_detail" adtbl.ad_key %}";
 

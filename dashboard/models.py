@@ -112,6 +112,13 @@ class AdTbl(models.Model):
     def get_progress(self):
         return float(self.uv_hit)/self.ad_limit
 
+    def get_spending(self, uv=True):
+        spending = 20
+        if uv:
+            return spending*self.uv_hit
+        else:
+            return spending*self.survey_total
+
 
 class AdvertiserReq(models.Model):
     index = models.IntegerField(primary_key=True)

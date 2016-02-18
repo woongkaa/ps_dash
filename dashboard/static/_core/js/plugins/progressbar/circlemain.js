@@ -19,7 +19,7 @@ window.onload = function onLoad(){
 
         // Set default step function for all animate calls
         step: function(state, bar) {
-            bar.setText((bar.value() * 100).toFixed(2) + '%');
+            bar.setText((bar.value()).toFixed(2) + '%');
             bar.path.setAttribute('stroke', state.color);
         }
     });
