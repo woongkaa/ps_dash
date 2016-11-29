@@ -1,0 +1,26 @@
+{% extends "dashboard/layout/base_wo_sb.html" %}
+{% load bootstrap3 %}
+
+{% block container-class %}container-login{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <form method="post">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">플레이센스 관리자 로그인</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url "finers_admin:home" %}{% endif %}" />
+                        {% bootstrap_form form %}
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary btn-block">로그인</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

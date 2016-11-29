@@ -17,14 +17,16 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from dashboard import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^movie_detail.json/(?P<pk>[0-9]+)$',views. MovieInfo.as_view(), name="movie_detail"),
-    url(r'^movie_log.json/(?P<pk>[0-9]+)$', views.MovieLog.as_view(), name="movie_log"),
+    url(r'^api/movie_detail.json/(?P<pk>[0-9]+)$',views. MovieInfo.as_view(), name="movie_detail"),
+    url(r'^api/movie_log.json/(?P<pk>[0-9]+)$', views.MovieLog.as_view(), name="movie_log"),
     url(r'^monitoring/(?P<pk>[0-9]+)$', views.Monitoring.as_view(), name="monitoring"),
-    url(r'^movie$', views.movie_detail,name="movie"),
+    url(r'^api/movie$', views.movie_detail,name="movie"),
     url(r'^monitorf/(?P<pk>[0-9]+)$', views.monitoring, name="monitoring_fbv"),
     url(r'^dashboard/', include("dashboard.urls")),
     url(r'^testboard$', views.TestView.as_view(), name="dash_test"),
+    url(r'^login/', auth_views.login, {'template_name': 'dashboard/login.html'}, name="login"),
 ]

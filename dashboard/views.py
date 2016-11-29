@@ -3,8 +3,9 @@ from django.shortcuts import render
 from django.conf import settings
 from django.views.generic import View, DetailView, TemplateView
 from dashboard.models import *
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def json_movie_info(request, **kwargs):
@@ -36,9 +37,10 @@ def monitoring(request, **kwargs):
     return render(request, "dashboard/monitor.html", {'movie':movie,'logs':logs})
 
 
-class Dashboard(DetailView):
+class Dashboard(LoginRequiredMixin, DetailView):
     template_name = "dashboard/index.html"
     model = AdTbl
+    login_url = reverse_lazy("login")
 
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)

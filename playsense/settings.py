@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'dashing',
     'django_extensions',
     'dashboard',
+    'bootstrap3',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -50,7 +51,7 @@ ROOT_URLCONF = 'playsense.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), 'dashboard',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,20 +117,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/client/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "resources/static")
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
-    'dashboard',
-)
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.request",
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages"
-)
